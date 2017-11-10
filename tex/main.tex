@@ -1,0 +1,114 @@
+\documentclass[a4paper, 13pt, draft]{report}
+\usepackage{amsmath}
+
+
+\author{%
+	Norbert Logiewa \\
+\small{nl253}}
+
+\title{%
+	\Huge{Assessment 1} \\
+	\small{Logic and Regular Languages}
+}
+
+\begin{document}
+
+\maketitle
+
+\section*{\begin{center} \huge{Propositional Logic} \end{center}} 
+
+	\begin{center} 
+		$ model = (a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) $ 
+	\end{center}
+
+	\subsection*{%
+		1. Model as a propositional formal the poroperty that 
+	the inital state cannot be reached from c or b}
+
+	\[ \neg (model \rightarrow ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime))) \]
+
+	\subsection*{2. Prove the following sequent:} %% TODO
+
+	\[ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime \vdash (a \vee b) \rightarrow (b^\prime \vee c^\prime)\]
+
+	\begin{enumerate}		
+		\item $ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime $ [premise]
+		\item $ \neg a \vee b^\prime $ De Morgan's Law 1
+		\item $ \neg b \vee c^\prime $ De Morgan's Law 1
+		\item $ \neg c \vee b^\prime $ De Morgan's Law 1
+		\item $ (\neg a \vee b^\prime) \wedge (\neg b \vee c^\prime) \wedge (\neg c \vee b^\prime)$ conjunction introduction 2 -- 4 
+		\item $(a \vee b) \rightarrow (b^\prime \vee c^\prime)$  [conclusion] 1 -- ?
+	\end{enumerate}		
+
+	\subsection*{3. Model the property that the automate can only be in one stat at a time via a defintion of a propositional function}
+
+	\begin{center}
+		$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $
+	\end{center}
+
+	\subsection*{4. Negate the formula and convert it to CNF} %% TODO check !!!
+
+	\[ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) \]
+
+	\hline 
+
+	\[ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) \]
+
+	\[ \neg (((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee a^\prime)) \]
+
+	\[ \neg (\neg ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime)) \]
+
+	\[ \neg (\neg (\neg a \vee b^\prime) \vee \neg (a \wedge \neg b) \vee \neg (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime) \]
+
+	\[ \neg ((a \wedge \neg b^\prime) \vee (\neg a \vee b) \vee (\neg b^\prime \vee a^\prime)) \vee (\neg b \vee a^\prime) \]
+
+	\[ ( \neg (a \wedge \neg b^\prime) \wedge \neg (\neg a \vee b) \wedge \neg (\neg b^\prime \vee a^\prime)) \vee (\neg b \vee a^\prime) \]
+
+	\[ ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime)) \vee (\neg b \vee a^\prime) \]
+
+	\[ ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime)) \wedge \neg (b \vee \neg a^\prime) \]
+
+	\[ (\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime) \wedge \neg (b \vee \neg a^\prime) \]
+
+	\hline
+
+	\[ (\neg a \vee b^\prime) \wedge \neg (\neg a \vee b) \wedge (b^\prime \vee \neg a^\prime) \wedge \neg (b \vee \neg a^\prime) \]
+
+	\subsection*{%
+		5. Explain the principle of unit propagation from DPLL, 
+	and use it to show that CNF formula of the previous question is unsatisfiable.}
+
+	\subsection*{6. Comment on the validity of the original formula.} 
+
+\section*{\begin{center}\huge{First Order Logic}\end{center}} 
+
+	\subsection*{%
+		1. Write a formula in first-order logic, using the parent relation, 
+	that states that two entities $x$ and $y$ are siblings if they share a parent}
+
+	\[ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) \]
+
+	\subsection*{%
+		2. Assuming there is an equality relation $ \equiv $ on $ P $ 
+		such that $ x \equiv y $ means $ x $ and $ y $ are the same entity, 
+	write a formula in first order logic stating that every entity has two distinct parents.}
+
+	\[ \forall{i}.\exists!{y}.\exists!{x} (parent(x, i) \wedge parent(y, i) \wedge \neg (x \equiv y)) \]
+
+	\subsection*{3. Prove that the following sequent is valid:}
+
+	\[ parent(p, q).\forall{x}.\forall{y}(parnet(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
+
+	\hline
+
+	\begin{enumerate}		
+		\item $ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) $ [premise]
+		\item  ---
+		\item $ \exists.parent(z, p) $ [conclusion] 1 -- \?
+	\end{enumerate}		
+
+	\hline
+
+	\end{document}
+
+	%% vim: foldmethod=marker conceallevel=0:
