@@ -1,7 +1,6 @@
 \documentclass[a4paper, 13pt, draft]{report}
 \usepackage{amsmath}
 
-
 \author{%
 	Norbert Logiewa \\
 \small{nl253}}
@@ -15,6 +14,14 @@
 
 \maketitle
 
+\newcommand{\answer}[1]{%
+\begin{flushleft}
+		
+	\textbf{Answer}:\\
+		#1
+\end{flushleft}
+}
+
 \section*{\begin{center} \huge{Propositional Logic} \end{center}} 
 
 	\begin{center} 
@@ -25,7 +32,7 @@
 		1. Model as a propositional formal the poroperty that 
 	the inital state cannot be reached from c or b}
 
-	\[ \neg (model \rightarrow ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime))) \]
+	\[ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) \]
 
 	\subsection*{2. Prove the following sequent:} %% TODO
 
@@ -33,11 +40,18 @@
 
 	\begin{enumerate}		
 		\item $ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime $ [premise]
-		\item $ \neg a \vee b^\prime $ De Morgan's Law 1
-		\item $ \neg b \vee c^\prime $ De Morgan's Law 1
-		\item $ \neg c \vee b^\prime $ De Morgan's Law 1
-		\item $ (\neg a \vee b^\prime) \wedge (\neg b \vee c^\prime) \wedge (\neg c \vee b^\prime)$ conjunction introduction 2 -- 4 
-		\item $(a \vee b) \rightarrow (b^\prime \vee c^\prime)$  [conclusion] 1 -- ?
+		\item $ (a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) $ $ \wedge_i $
+		\item $ (a \rightarrow b^\prime) \wedge (c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ commutativity of $ \wedge $
+		\item $ ((a \wedge c) \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ distributivity of $ \rightarrow $
+		% \item $ \neg (a \wedge c) \vee b^\prime \wedge (\neg b \vee c^\prime) $ De Morgan's Law
+		% \item $ \neg a \vee c \vee b^\prime \vee b \wedge \neg c^\prime $
+		% \item $ \neg a \vee c \vee b^\prime \vee b \wedge \neg c^\prime $
+		% \item $ (\neg a \vee b^\prime) \wedge (\neg b \vee c^\prime) \wedge (\neg c \vee b^\prime)$  De Morgan's Law
+		% \item $ (\neg a \vee b^\prime) \wedge (\neg c \vee b^\prime) \wedge (\neg b \vee c^\prime) $  commutativity of $ \wedge $
+		% \item $ (b^\prime \vee \neg a) \wedge (b^\prime \vee \neg c) \wedge (\neg b \vee c^\prime) $  commutativity of $ \vee $
+		% \item $ b^\prime \vee ( \neg a \wedge \neg c) \wedge (\neg b \vee c^\prime) $  distributivity 
+		% \item $ b^\prime \vee ( \neg a \wedge \neg c) \wedge (\neg b \vee c^\prime) $ 
+		% \item $(a \vee b) \rightarrow (b^\prime \vee c^\prime)$  [conclusion] 1 -- ?
 	\end{enumerate}		
 
 	\subsection*{3. Model the property that the automate can only be in one stat at a time via a defintion of a propositional function}
@@ -51,34 +65,49 @@
 	\[ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) \]
 
 	\hline 
-
-	\[ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) \]
-
-	\[ \neg (((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee a^\prime)) \]
-
-	\[ \neg (\neg ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime)) \]
-
-	\[ \neg (\neg (\neg a \vee b^\prime) \vee \neg (a \wedge \neg b) \vee \neg (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime) \]
-
-	\[ \neg ((a \wedge \neg b^\prime) \vee (\neg a \vee b) \vee (\neg b^\prime \vee a^\prime)) \vee (\neg b \vee a^\prime) \]
-
-	\[ ( \neg (a \wedge \neg b^\prime) \wedge \neg (\neg a \vee b) \wedge \neg (\neg b^\prime \vee a^\prime)) \vee (\neg b \vee a^\prime) \]
-
-	\[ ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime)) \vee (\neg b \vee a^\prime) \]
-
-	\[ ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime)) \wedge \neg (b \vee \neg a^\prime) \]
-
-	\[ (\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \vee \neg a^\prime) \wedge \neg (b \vee \neg a^\prime) \]
-
+	  
+	\begin{enumerate}		
+		\item  $ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) $
+		\item  $ \neg (((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee a^\prime)) $
+		\item  $ \neg (\neg ((\neg a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime)) $
+		\item  $ \neg ((\neg (a \vee b^\prime) \vee \neg (a \wedge \neg b) \vee \neg (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee a^\prime)) $ 
+		\item  $ \neg (\neg (a \vee b^\prime) \vee \neg (a \wedge \neg b) \vee \neg (b^\prime \wedge \neg a^\prime)) \wedge \neg (\neg b \vee a^\prime) $ 
+		\item  $ (a \vee b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime) \wedge \neg (\neg b \vee a^\prime) $ 
+		\item  $ (a \vee b^\prime) \wedge \neg (\neg a \vee b) \wedge \neg (\neg b^\prime \vee a^\prime) \wedge \neg (\neg b \vee a^\prime) $
+		\item  $ (a \vee b^\prime) \wedge \neg (\neg a \vee b) \wedge \neg (\neg b^\prime \vee a^\prime) \wedge \neg (\neg b \vee a^\prime) $ commutativity
+		\item $ (a \vee b^\prime) \wedge \neg (\neg a \vee b) \wedge \neg (\neg b^\prime \vee a^\prime) \wedge \neg (\neg b \vee a^\prime) $
+		\item $ (a \vee b^\prime) \wedge a \wedge \neg b \wedge \neg (\neg b^\prime \vee a^\prime) \wedge \neg (\neg b \vee a^\prime) $
+		\item $ (a \vee b^\prime) \wedge a \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge \neg (\neg b \vee a^\prime) $
+		\item $ (a \vee b^\prime) \wedge a \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b \wedge \neg a^\prime $
+	\end{enumerate}	
 	\hline
+	\[ (a \vee b^\prime) \wedge a \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b \wedge \neg a^\prime \]
 
-	\[ (\neg a \vee b^\prime) \wedge \neg (\neg a \vee b) \wedge (b^\prime \vee \neg a^\prime) \wedge \neg (b \vee \neg a^\prime) \]
-
-	\subsection*{%
-		5. Explain the principle of unit propagation from DPLL, 
+\subsection*{%
+	5. Explain the principle of unit propagation from DPLL, 
 	and use it to show that CNF formula of the previous question is unsatisfiable.}
 
-	\subsection*{6. Comment on the validity of the original formula.} 
+	Unit propagation refers to a technique that is used to simplify
+	logical formulas.
+	When we have a clause that \textit{only} constains a single literal
+	such as $ x $, in all other clauses that contain $ x $, we can
+	subsitute it for $ True $.
+
+	We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
+	If we continue to substitute $ True $ for single literal clauses:
+
+
+	\[ 
+		(True \vee b^\prime) \wedge True \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b \wedge \neg a^\prime 
+	\]
+
+	\answer{Here, if we rearrange the formula, it becomes clear that we have both $ b $ and $ \neg b $, this is a contradiction.}
+
+	\[ 
+		(True \vee b^\prime) \wedge True \wedge b \wedge \neg b \wedge b^\prime \wedge \neg a^\prime
+	\]
+
+\subsection*{6. Comment on the validity of the original formula.} 
 
 \section*{\begin{center}\huge{First Order Logic}\end{center}} 
 
@@ -86,7 +115,7 @@
 		1. Write a formula in first-order logic, using the parent relation, 
 	that states that two entities $x$ and $y$ are siblings if they share a parent}
 
-	\[ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) \]
+	\[ \forall{i}.\forall{j}.siblings(i_0, j_0) \equiv (parent(x, i_0) = parent(x, j_0)) \]
 
 	\subsection*{%
 		2. Assuming there is an equality relation $ \equiv $ on $ P $ 
@@ -97,18 +126,70 @@
 
 	\subsection*{3. Prove that the following sequent is valid:}
 
-	\[ parent(p, q).\forall{x}.\forall{y}(parnet(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
+	\[ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
 
 	\hline
 
 	\begin{enumerate}		
 		\item $ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) $ [premise]
 		\item  ---
-		\item $ \exists.parent(z, p) $ [conclusion] 1 -- \?
+		\item $ \exists.parent(z, p) $ [conclusion] 1 -- ?
 	\end{enumerate}		
 
 	\hline
 
-	\end{document}
+\subsection*{4. Interpret the following formula into simple English statement}
+
+\[ 
+	\forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b)
+\]
+
+\answer{If all children have a parent, then all parents have a child.}
+
+\subsection*{5. The sequent below is not valid. Show this by proving a 
+	counter-example: a concrete definition of the universe $ P $ (a set) 
+	and the relation parent. Explain why this is a counterexample.}
+
+\[ 
+	\vdash \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) 
+\]
+
+\begin{flushleft}
+	\textbf{In English}\\
+	if all children have a parent then all parents have a child.
+\end{flushleft}
+
+\begin{enumerate}		
+	\item $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) $ [premise] \\ 
+  \hline
+	\item  $ \let{P} = \{\ x\ |\ x\ \} $  \\
+  \hline
+	\item $ False $ [conclusion]
+\end{enumerate}		
+
+
+\subsection*{6. What is the smallest possible counterexample universe $ P $ and relation parent. Explain your reasoning.}
+
+\subsection*{7. Prove that the following sequent is valid.}
+
+\[
+	\forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) \vdash \neg \exists{x}.parent(x, x)
+\]
+
+ie. if someone is a parent and has a child, then that child cannot be it's parent.
+
+\begin{enumerate}		
+	\item $ \forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) $ [premise] \\
+	\hline
+	\item $ parent(x_i, y_j) \rightarrow \neg (x_i \equiv y_j)  $ $ \forall_e $ 1
+	\item $ \neg parent(x_i, y_j) \vee \neg (x_i \equiv y_j) $  because $ P \rightarrow Q \equiv \neg P \vee Q $
+	\item $ \neg (parent(x_i, y_j) \wedge (x_i \equiv y_j)) $  De Morgan's Law \\
+	\hline
+	\item $ \neg \exists{x}.parent(x, x) [conclusion] $
+\end{enumerate}		
+
+
+
+\end{document}
 
 	%% vim: foldmethod=marker conceallevel=0:
