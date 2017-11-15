@@ -2,13 +2,13 @@
 
 \usepackage{amsmath}  % math
 \usepackage{graphicx} % embedding images
-\usepackage{enumitem}
+\usepackage{enumitem} % lists
 \usepackage{hyperref} % urls
 
 \usepackage{geometry} % margins
 \geometry{margin=0.9in} % make the margin smaller
 
-\graphicspath{ {/home/norbert/Documents/Assignments/Logic/img/} }
+\graphicspath{{z:/Documents/Assessments/Logic/img}{../img/}{./img/}}
 
 \author{%
 	Norbert Logiewa \\
@@ -60,8 +60,8 @@
 
 \topic{Propositional Logic}
 
-\question{1. Model as a propositional formal the poroperty that
-	the inital state cannot be reached from c or b}
+\question{1. Model as a propositional formal the property that
+	the initial state cannot be reached from c or b}
 
 \answer{%
 	$ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) $
@@ -84,7 +84,7 @@
 	\item $ (a \vee b) \rightarrow (b^\prime \vee c^\prime) $  [$ \vee_i $] 7 [conclusion] \\
 \end{enumerate}		
 
-\question{3. Model the property that the automate can only be in one stat at a time via a defintion of a propositional function}
+\question{3. Model the property that the automate can only be in one state at a time via a definition of a propositional function}
 
 \answer{%
 	$ A \oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator] \\
@@ -114,13 +114,14 @@
 
 		\item Simplify (remove duplicate elements because $ A \wedge A \equiv A$) \\ \\ 
 			$ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\
+			$ (\neg a \vee b^\prime) \wedge b \wedge b^\prime \wedge \neg a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\
 
 	\end{enumerate}		
 \end{enumerate}		
 
 \hline
 
-\answer{$(\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime \\ $ \\ } \\
+\answer{$ (\neg a \vee b^\prime) \wedge b \wedge b^\prime \wedge \neg a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\} \\
 
 \question{5. Explain the principle of unit propagation from DPLL, and use
   it to show that CNF formula of the previous question is unsatisfiable.}
@@ -137,14 +138,8 @@
 		\item \answer{%
 				We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
 				We simplify it and continue to substitute $ True $ for single literal clauses.
-				When we rearrange the formula, it becomes clear that we have $ b \wedge \neg b $, this is a contradiction.
-
-				\[ (True \vee b^\prime) \wedge True \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b  \]
-				\[ (True \vee True) \wedge True \wedge \neg b \wedge True \wedge \neg a^\prime \wedge b \]
-				\[ \neg b \wedge True \wedge \neg a^\prime \wedge b \]
-				\[ \neg b \wedge \neg a^\prime \wedge b \]
-				\[ \neg b \wedge b \wedge \neg a^\prime \]
-			}
+				When we rearrange and simplify the formula, it becomes clear that we have 
+				$ a^\prime \wedge \neg a^\prime $.  We can replace $a^\prime$ with $\top$ which results in $\top \wedge \bot$, this is a contradiction.}
 
 	\end{enumerate}		
 
@@ -174,7 +169,7 @@
 
 \question{3. Prove that the following sequent is valid:}
 
-\[ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
+\[ parent(p, q), \forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists{z}.parent(z, p) \]
 
 \hline
 
@@ -200,41 +195,51 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\vdash \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) 
 \]
 
-\begin{flushleft}
-	\textbf{In English}\\
-	if all children have a parent then all parents have a child.
-\end{flushleft}
+\answer{%
+	If this is not valid then
+	$ \forall{x}.\exists{y}.parent(y, x) \wedge \neg (\forall{a}.\exists{b}.parent(a, b)) $
+	because the only way to contradict implication is by concluding false from true.
+	This is because $ \neg (A \rightarrow B) \rightarrow (A \wedge \neg B)$.
+	So I need to prove this is true by defining the Universe $P$ (a set):
 
-\begin{enumerate}		
-	\item $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) $ [premise] \\ 
-  \hline
-	\item  $ \let{P} = \{\ x\ |\ x\ \} $  \\
-  \hline
-	\item $ False $ [conclusion]
-\end{enumerate}		
+	\[ P = \{\ x\ |\ \exists{y}.parent(y, x)\} \]
+
+	and the case that contradicts it:
+
+	\[ \exists{a}.\exists{b}.\neg parent(a, b) \]
+
+	The reason this would be a counterexample is that it shows that
+	there is an object for which the predicate $parent$ does not hold,
+	which contradictis this logical statement which is universally
+	quantified ie. makes a claim about all objects.
+}
 
 \pagebreak
 
 \question{6. What is the smallest possible counterexample universe $ P $ and relation parent. Explain your reasoning.}
 
-\answer{The smallest possible counterexample universe (a set) would consist of one element, because one counterexample is sufficient to falsify any statment.}
+\answer{The smallest possible counterexample universe (a set) would consist
+	of the minimum number of elements for which the predicate does not hold (here this is two). 
+	Normally one counterexample  is sufficient to contradict any
+  statment that is universally quantified. In other words $\exists(A).\neg P(A)$ 
+  contradicts $\forall{A}.P(A)$, but because this predicate is a statement
+  about two objects $A$ and $B$ we do need both to show a single case where
+  $P$ does not hold.}
 
 \question{7. Prove that the following sequent is valid.}
 
-\[
-	\forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) \vdash \neg \exists{x}.parent(x, x)
-\]
-
-ie. if someone is a parent and has a child, then that child cannot be it's parent.
+\[ \forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) \vdash \neg \exists{x}.parent(x, x) \]
 
 \begin{enumerate}		
 	\item $ \forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) $ [premise] \\
 	\hline
-	\item $ parent(x_i, y_j) \rightarrow \neg (x_i \equiv y_j)  $ $ \forall_e $ 1
-	\item $ \neg parent(x_i, y_j) \vee \neg (x_i \equiv y_j) $  because $ P \rightarrow Q \equiv \neg P \vee Q $
-	\item $ \neg (parent(x_i, y_j) \wedge (x_i \equiv y_j)) $  De Morgan's Law \\
+	\item $ parent(x_0, y_0) \rightarrow \neg (x_0 \equiv y_0)  $ $ \forall_e $ 1
+	\item $ \neg parent(x_0, y_0) \vee \neg (x_0 \equiv y_0) $  because $ P \rightarrow Q \equiv \neg P \vee Q $
+  \item $ \neg (parent(x_0, y_0) \wedge (x_0 \equiv y_0)) $  De Morgan's Law 
+	\item $ \neg parent(x_0, x_0) $  because if $ (A \equiv B ) $ then we can replace all $B$ with $A$ or $A$ with $B$ 
+	\item $ \neg \exists{x_0}.parent(x_0, x_0)) $  $ \exists_i $ \\
 	\hline
-	\item $ \neg \exists{x}.parent(x, x) [conclusion] $
+	\item $ \neg \exists{x_0}.parent(x_0, x_0)) $  $ \exists_i $
 \end{enumerate}		
 
 \topic{Regular Lanugages and Finite Automata}
@@ -243,26 +248,24 @@ ie. if someone is a parent and has a child, then that child cannot be it's paren
 
 \begin{itemize}		
 	\item translate it into an NFA \\
-		\answer{\centeredimg{rl_1_a}}
+		\answer{\centeredimg{rl_1_a.jpg}}
 	\item remove (semantic preserving) the $ \epsilon $ transitions \\
-		\answer{\centeredimg{rl_1_b}} 
+		\answer{} 
 	\pagebreak
 	\item create the corresponding DFA \\
-		\answer{\centeredimg{rl_1_c}}
+		\answer{\centeredimg{rl_1_c.jpg}}
 \end{itemize}
-
-\pagebreak
 
 \question{2. Consider the following language: A word is in the language if
   and only if it contains an even number of $A$s an odd number of $B$s and precisely one $C$.}
 
-\begin{itemize}		
-	\item Design a DFA for this language. \\
-		\answer{Not possible.} 
-	\item Explain your design (what information do you ``store'' in your states?) \\
-		\answer{Not possible.} 
-\end{itemize}
-
+\answer{%
+	This is not possible because Finite Automata cannot store any states
+	-- they don't have memory and cannot keep track of how many $A$s
+	and $B$s have been encountered. They only memory they have is the state they are in.
+	Generally speaking FSM lack the expressivenes to solve this problem
+	and parsing needs to be used in such cases.
+} 
 \pagebreak
 
 \section*{References}
@@ -277,6 +280,7 @@ ie. if someone is a parent and has a child, then that child cannot be it's paren
 	\item \url{https://en.wikipedia.org/wiki/Finite-state\_machine}
 	\item \url{https://en.wikipedia.org/wiki/Uniqueness\_quantification}
 	\item \url{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification}
+	\item \url{https://stackoverflow.com/questions/133601/can-regular-expressions-be-used-to-match-nested-patterns}
 \end{itemize}		
 
 \end{document}
