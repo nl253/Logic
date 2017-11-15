@@ -3,6 +3,8 @@
 \usepackage{amsmath}  % math
 \usepackage{graphicx} % embedding images
 \usepackage{enumitem}
+\usepackage{hyperref} % urls
+
 \usepackage{geometry} % margins
 \geometry{margin=1in} % make the margin smaller
 
@@ -17,7 +19,8 @@
 \title{%
 	Assessment 1 \\
 	\Huge{%
-		Logic, Regular Languages,\\  
+		Logic, \\
+		Regular Languages,\\  
 		and \\
 		Finite Automata}}
 
@@ -29,25 +32,19 @@
 }
 
 \newcommand{\centeredimg}[1]{%
-		\begin{figure}[h]
-			\begin{center}
-				\includegraphics[height=4cm]{#1}
-			\end{center}
-		\end{figure}
-} 
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[height=4cm]{#1}
+		\end{center}
+\end{figure}} 
 
 \newcommand{\answer}[1]{%
 	\begin{flushleft}
 		\textbf{Answer}:\\
 			#1
-	\end{flushleft}
-}
+	\end{flushleft}}
 
-\newcommand{\question}[1]{%
-	\section*{%
-		#1 
-	}
-}
+\newcommand{\question}[1]{\section*{#1}}
 
 % END OF MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -134,24 +131,28 @@
 	5. Explain the principle of unit propagation from DPLL, 
 	and use it to show that CNF formula of the previous question is unsatisfiable.}
 
-	\answer{a)
-	Unit propagation refers to a technique that is used to simplify
-	logical formulas.
-	When we have a clause that \textit{only} contains a single literal
-	such as $ x $, in all other clauses that contain $ x $, we can
-	replace it with $ True $.}
+	\begin{enumerate}		
 
-	\answer{b)
-	We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
-	We simplify it and continue to substitute $ True $ for single literal clauses.
-	When we rearrange the formula, it becomes clear that we have $ b \wedge \neg b $, this is a contradiction.
+		\item \answer{
+				Unit propagation refers to a technique that is used to simplify
+				logical formulas.
+				When we have a clause that \textit{only} contains a single literal
+				such as $ x $, in all other clauses that contain $ x $, we can
+			  replace it with $ True $.} \\
 
-	\[ (True \vee b^\prime) \wedge True \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b  \]
-	\[ (True \vee True) \wedge True \wedge \neg b \wedge True \wedge \neg a^\prime \wedge b \]
-	\[ \neg b \wedge True \wedge \neg a^\prime \wedge b \]
-	\[ \neg b \wedge \neg a^\prime \wedge b \]
-	\[ \neg b \wedge b \wedge \neg a^\prime \]
-	}
+		\item \answer{
+				We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
+				We simplify it and continue to substitute $ True $ for single literal clauses.
+				When we rearrange the formula, it becomes clear that we have $ b \wedge \neg b $, this is a contradiction.
+
+				\[ (True \vee b^\prime) \wedge True \wedge \neg b \wedge b^\prime \wedge \neg a^\prime \wedge b  \]
+				\[ (True \vee True) \wedge True \wedge \neg b \wedge True \wedge \neg a^\prime \wedge b \]
+				\[ \neg b \wedge True \wedge \neg a^\prime \wedge b \]
+				\[ \neg b \wedge \neg a^\prime \wedge b \]
+				\[ \neg b \wedge b \wedge \neg a^\prime \]
+			}
+
+	\end{enumerate}		
 
 \question{6. Comment on the validity of the original formula.} 
 
@@ -164,36 +165,36 @@ because of that it is not valid.
 
 \topic{First Order Logic}
 
-	\question{%
-		1. Write a formula in first-order logic, using the parent relation, 
+\question{%
+	1. Write a formula in first-order logic, using the parent relation, 
 	that states that two entities $x$ and $y$ are siblings if they share a parent}
 
-	\answer{$ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) $}
+\answer{$ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) $}
 
-	\question{%
-		2. Assuming there is an equality relation $ \equiv $ on $ P $ 
-		such that $ x \equiv y $ means $ x $ and $ y $ are the same entity, 
-	write a formula in first order logic stating that every entity has two distinct parents.}
+\question{%
+	2. Assuming there is an equality relation $ \equiv $ on $ P $ 
+	such that $ x \equiv y $ means $ x $ and $ y $ are the same entity, 
+  write a formula in first order logic stating that every entity has two distinct parents.}
 
-	\answer{%
-		$ \exists!{x}.P(x) \equiv \exists{x}(P(x) \wedge \forall{y}(P(y) \rightarrow y = x))  $
-		\footnote{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification} \\
-		$ \forall{i}.\exists!{y}.\exists!{x} (parent(x, i) \wedge parent(y, i) \wedge \neg (x \equiv y)) $ 
-	}
+\answer{%
+	$ \exists!{x}.P(x) \equiv \exists{x}(P(x) \wedge \forall{y}(P(y) \rightarrow y = x))  $
+	\footnote{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification} \\
+	$ \forall{i}.\exists!{y}.\exists!{x} (parent(x, i) \wedge parent(y, i) \wedge \neg (x \equiv y)) $ 
+}
 
-	\question{3. Prove that the following sequent is valid:}
+\question{3. Prove that the following sequent is valid:}
 
-	\[ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
+\[ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists.parent(z, p) \]
 
-	\hline
+\hline
 
-	\begin{enumerate}		
-		\item $ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) $ [premise]
-		\item  ---
-		\item $ \exists.parent(z, p) $ [conclusion] 1 -- ?
-	\end{enumerate}		
+\begin{enumerate}		
+	\item $ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) $ [premise]
+	\item  ---
+	\item $ \exists.parent(z, p) $ [conclusion] 1 -- ?
+\end{enumerate}		
 
-	\hline
+\hline
 
 \question{4. Interpret the following formula into simple English statement}
 
@@ -222,7 +223,6 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\item $ False $ [conclusion]
 \end{enumerate}		
 
-
 \question{6. What is the smallest possible counterexample universe $ P $ and relation parent. Explain your reasoning.}
 
 \question{7. Prove that the following sequent is valid.}
@@ -248,46 +248,43 @@ ie. if someone is a parent and has a child, then that child cannot be it's paren
 \question{1. For the reular expression $ (A|AB|ABB)^* $ do the following steps (and justify them):}
 
 \begin{itemize}		
-	\item[a)] translate it into an NFA
+	\item[$\alph$] translate it into an NFA
 		\answer{\centeredimg{rl_1_a}}
 
-	\item[b)] remove (semantic preserving) the $ \epsilon $ transitions
+	\item[$\alph$] remove (semantic preserving) the $ \epsilon $ transitions
 		\answer{\centeredimg{rl_1_b}}
 
-	\item[c)] create the corresponding DFA
+	\item[$\alph$] create the corresponding DFA
 		\answer{\centeredimg{rl_1_c}}
 \end{itemize}		
 
 \pagebreak
 
-\question{%
-	2. Consider the following language: \\ A word is in the language if and
-	only if it contains an even number of $A$s an odd number of $B$s and
-	precisely one $C$.
-}
-	\begin{enumerate}		
-		\item[a)] Design a DFA for this language
-			\answer{%
-				Not possible.
-			}
-		\item[b)] Explain your design  (what information do you "store " in your states?)
-	\end{enumerate}		
+\question{2. Consider the following language: \\ 
+	A word is in the language if and only if it contains an even number
+	of $A$s an odd number of $B$s and precisely one $C$.}
+
+\begin{enumerate}		
+	\item[] Design a DFA for this language
+		\answer{Not possible.}
+	\item[] Explain your design  (what information do you ``store'' in your states?)
+\end{enumerate}
 
 \pagebreak
 
-\section*{Additional Sources}
+\section*{References}
 
 \begin{itemize}[noitemsep]		
-  \item https://en.wikipedia.org/wiki/Negation
-  \item https://en.wikipedia.org/wiki/Distributive\_property
-  \item https://en.wikipedia.org/wiki/Conjunctive\_normal\_form
-  \item https://en.wikipedia.org/wiki/De\_Morgan\%27s\_laws
-  \item https://en.wikipedia.org/wiki/Modus\_ponens
-  \item https://en.wikipedia.org/wiki/Exclusive\_or
-  \item https://en.wikipedia.org/wiki/Finite-state\_machine
-  \item https://en.wikipedia.org/wiki/Uniqueness\_quantification
+  \item \url{https://en.wikipedia.org/wiki/Negation}
+	\item \url{https://en.wikipedia.org/wiki/Distributive\_property}
+	\item \url{https://en.wikipedia.org/wiki/Conjunctive\_normal\_form}
+	\item \url{https://en.wikipedia.org/wiki/De\_Morgan\%27s\_laws}
+	\item \url{https://en.wikipedia.org/wiki/Modus\_ponens}
+	\item \url{https://en.wikipedia.org/wiki/Exclusive\_or}
+	\item \url{https://en.wikipedia.org/wiki/Finite-state\_machine}
+	\item \url{https://en.wikipedia.org/wiki/Uniqueness\_quantification}
+	\item \url{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification}
 \end{itemize}		
 
 \end{document}
-
-	%% vim: foldmethod=marker conceallevel=0:
+%% vim: foldmethod=marker conceallevel=0:
