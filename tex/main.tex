@@ -12,7 +12,7 @@
 
 \author{%
 	Norbert Logiewa \\
-\small{nl253}}
+	\small{nl253}}
 
 \date{November 2017}
 
@@ -45,6 +45,7 @@
 	\end{flushleft}}
 
 \newcommand{\question}[1]{\section*{#1}}
+\newcommand{\subquestion}[1]{\subsection*{#1}}
 
 % END OF MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -55,9 +56,8 @@
 
 \topic{Propositional Logic}
 
-	\question{%
-		1. Model as a propositional formal the poroperty that 
-	the inital state cannot be reached from c or b}
+	\question{1. Model as a propositional formal the poroperty that 
+	  the inital state cannot be reached from c or b}
 
 	\answer{%
 		$ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) $
@@ -127,9 +127,8 @@
 	\hline
 }
 
-\question{%
-	5. Explain the principle of unit propagation from DPLL, 
-	and use it to show that CNF formula of the previous question is unsatisfiable.}
+\question{5. Explain the principle of unit propagation from DPLL, and use
+  it to show that CNF formula of the previous question is unsatisfiable.}
 
 	\begin{enumerate}		
 
@@ -156,25 +155,21 @@
 
 \question{6. Comment on the validity of the original formula.} 
 
-\answer{%
-The formula is not satisfiable and therefore not valid as satisfiability is
-a prerequisite for validity. In other words, because that logical statement
-was a contradiction (\textit{assumed something can be False and True at the same time}), there was no way in which it could have been true and
-because of that it is not valid.
-}
+\answer{The formula is not satisfiable and therefore not valid as satisfiability is
+	a prerequisite for validity. In other words, because that logical statement
+	was a contradiction (\textit{assumed something can be False and True at the same time}), there was no way in which it could have been true and
+	because of that it is not valid.}
 
 \topic{First Order Logic}
 
-\question{%
-	1. Write a formula in first-order logic, using the parent relation, 
-	that states that two entities $x$ and $y$ are siblings if they share a parent}
+\question{1. Write a formula in first-order logic, using the parent relation, 
+	that states that two entities $x$ and $y$ are siblings if they share a parent} 
 
 \answer{$ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) $}
 
-\question{%
-	2. Assuming there is an equality relation $ \equiv $ on $ P $ 
+\question{2. Assuming there is an equality relation $ \equiv $ on $ P $ 
 	such that $ x \equiv y $ means $ x $ and $ y $ are the same entity, 
-  write a formula in first order logic stating that every entity has two distinct parents.}
+  write a formula in first order logic stating that every entity has two distinct parents.} 
 
 \answer{%
 	$ \exists!{x}.P(x) \equiv \exists{x}(P(x) \wedge \forall{y}(P(y) \rightarrow y = x))  $
@@ -204,7 +199,7 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 
 \question{5. The sequent below is not valid. Show this by proving a 
 	counter-example: a concrete definition of the universe $ P $ (a set) 
-	and the relation parent. Explain why this is a counterexample.}
+	and the relation parent. Explain why this is a counterexample.} 
 
 \[ 
 	\vdash \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) 
@@ -262,13 +257,11 @@ ie. if someone is a parent and has a child, then that child cannot be it's paren
 
 \question{2. Consider the following language: \\ 
 	A word is in the language if and only if it contains an even number
-	of $A$s an odd number of $B$s and precisely one $C$.}
+	of $A$s an odd number of $B$s and precisely one $C$.
+  Design a DFA for this language. Explain your design  (what information do you ``store'' in your states?)}
 
-\begin{enumerate}		
-	\item[] Design a DFA for this language
-		\answer{Not possible.}
-	\item[] Explain your design  (what information do you ``store'' in your states?)
-\end{enumerate}
+\answer{Not possible.} 
+\answer{Not possible.} 
 
 \pagebreak
 
