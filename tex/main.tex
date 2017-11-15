@@ -34,7 +34,7 @@
 \newcommand{\centeredimg}[1]{%
 	\begin{figure}[h]
 		\begin{center}
-			\includegraphics[height=4cm]{#1}
+			\includegraphics[height=8cm]{#1}
 		\end{center}
 \end{figure}} 
 
@@ -44,8 +44,12 @@
 			#1
 	\end{flushleft}}
 
-\newcommand{\question}[1]{\section*{#1}}
-\newcommand{\subquestion}[1]{\subsection*{#1}}
+\newcommand{\question}[1]{\subsection*{#1}}
+\newcommand{\task}[1]{%
+	\begin{flushleft}
+		\textbf{Task:}\\ 
+		#1
+	\end{flushleft}}
 
 % END OF MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -56,75 +60,77 @@
 
 \topic{Propositional Logic}
 
-	\question{1. Model as a propositional formal the poroperty that 
-	  the inital state cannot be reached from c or b}
+\question{1. Model as a propositional formal the poroperty that
+	the inital state cannot be reached from c or b}
 
-	\answer{%
-		$ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) $
-	}
+\answer{%
+	$ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) $
+}
 
-	\question{2. Prove the following sequent:} %% TODO
+\question{2. Prove the following sequent:} %% TODO
 
-	\[ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime \vdash (a \vee b) \rightarrow (b^\prime \vee c^\prime)\]
+\[ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime \vdash (a \vee b) \rightarrow (b^\prime \vee c^\prime)\]
 
-	\begin{enumerate}		
-		\item $ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime $ [premise] \\
-		\hline
-		\item $ (a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) $ [$ \wedge_i $] 1
-		\item $ (a \rightarrow b^\prime) \wedge (c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [commutativity of $ \wedge $] 2
-		\item $ (a \wedge c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [distributivity of $ \rightarrow $] 3
-		\item $ a \wedge c \rightarrow b^\prime $ [$ \wedge_{e2} $] 4
-		\item $ a \rightarrow b^\prime $ [$ \wedge_{e2} $] 5
-		\item $ a \vee b \rightarrow b^\prime $ [$ \vee_{i2} $] 6 \\
-		\hline
-		\item $ (a \vee b) \rightarrow (b^\prime \vee c^\prime) $  [$ \vee_i $] 7 [conclusion] \\
-	\end{enumerate}		
-
-	\question{3. Model the property that the automate can only be in one stat at a time via a defintion of a propositional function}
-
-	\answer{%
-		$ A \oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator] \\
-			$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $
-	}
-
-	\question{4. Negate the formula and convert it to CNF} %% TODO check !!!
-
-	\[ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) \]
-
-	\answer{%
-	\begin{enumerate}		
-
-		\item Negate the formula \\
-			\[ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) \] 
-	  
-		\item Remove $\rightarrow$ using $A \rightarrow B \equiv \neg A \vee B$ property \\
-			\[ \neg (((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee \neg a^\prime)) \]  
-			\[ \equiv \]
-			\[ \neg (\neg ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee \neg a^\prime)) \] 
-
-		\item Push $\neg$ inwards using De Morgan's Laws
-			\[ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge \neg (\neg b \vee \neg a^\prime) \] 
-			\[ \equiv \]
-			\[ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge (b \wedge a^\prime) \] 
-
-		\item Distribute
-			\[ b \wedge ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge a^\prime \wedge  ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \] 
-			\[ \equiv \]
-			\[ 
-				\begin{split}
-					b \wedge (\neg a \vee b^\prime) \wedge b \wedge (\neg a \vee \neg b) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \\
-					\wedge\  
-					a^\prime \wedge (\neg a \vee b^\prime) \wedge a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime \wedge (b^\prime \wedge \neg a^\prime)
-			 \end{split}
-			\] 
-
-			\item Simplify (remove duplicate elements because $ A \wedge A \equiv A$)
-
-			\[ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  \] 
-
-	\end{enumerate}		
-
+\begin{enumerate}		
+	\item $ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime $ [premise] \\ 
 	\hline
+	\item $ (a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) $ [$ \wedge_i $] 1
+	\item $ (a \rightarrow b^\prime) \wedge (c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [commutativity of $ \wedge $] 2
+	\item $ (a \wedge c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [distributivity of $ \rightarrow $] 3
+	\item $ a \wedge c \rightarrow b^\prime $ [$ \wedge_{e2} $] 4
+	\item $ a \rightarrow b^\prime $ [$ \wedge_{e2} $] 5
+	\item $ a \vee b \rightarrow b^\prime $ [$ \vee_{i2} $] 6 \\
+	\hline
+	\item $ (a \vee b) \rightarrow (b^\prime \vee c^\prime) $  [$ \vee_i $] 7 [conclusion] \\
+\end{enumerate}		
+
+\question{3. Model the property that the automate can only be in one stat at a time via a defintion of a propositional function}
+
+\answer{%
+	$ A \oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator] \\
+	$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $
+}
+
+\question{4. Negate the formula and convert it to CNF} %% TODO check !!!
+
+\[ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) \]
+
+\begin{enumerate}		
+
+	\item Negate the formula \\
+		\[ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) \] 
+	
+	\item Remove $\rightarrow$ using $A \rightarrow B \equiv \neg A \vee B$ property \\
+		\[ \neg (((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee \neg a^\prime)) \]  
+		\[ \equiv \]
+		\[ \neg (\neg ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee \neg a^\prime)) \] 
+
+	\item Push $\neg$ inwards using De Morgan's Laws
+		\[ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge \neg (\neg b \vee \neg a^\prime) \] 
+		\[ \equiv \]
+		\[ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge (b \wedge a^\prime) \] 
+
+	\item Distribute
+		\[ b \wedge ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge a^\prime \wedge  ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \] 
+		\[ \equiv \]
+		\[ 
+			\begin{split}
+				b \wedge (\neg a \vee b^\prime) \wedge b \wedge (\neg a \vee \neg b) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \\
+				\wedge\  
+				a^\prime \wedge (\neg a \vee b^\prime) \wedge a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime \wedge (b^\prime \wedge \neg a^\prime)
+		 \end{split}
+		\] 
+
+		\item Simplify (remove duplicate elements because $ A \wedge A \equiv A$)
+
+		\[ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  \] 
+
+\end{enumerate}		
+
+\hline
+
+\answer{%
+		\[ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  \] 
 }
 
 \question{5. Explain the principle of unit propagation from DPLL, and use
@@ -132,14 +138,14 @@
 
 	\begin{enumerate}		
 
-		\item \answer{
+		\item \answer{%
 				Unit propagation refers to a technique that is used to simplify
 				logical formulas.
 				When we have a clause that \textit{only} contains a single literal
 				such as $ x $, in all other clauses that contain $ x $, we can
 			  replace it with $ True $.} \\
 
-		\item \answer{
+		\item \answer{%
 				We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
 				We simplify it and continue to substitute $ True $ for single literal clauses.
 				When we rearrange the formula, it becomes clear that we have $ b \wedge \neg b $, this is a contradiction.
@@ -240,28 +246,30 @@ ie. if someone is a parent and has a child, then that child cannot be it's paren
 
 \topic{Regular Lanugages and Finite Automata}
 
-\question{1. For the reular expression $ (A|AB|ABB)^* $ do the following steps (and justify them):}
+\question{1. For the reular expression $ (A|AB|ABB)^* $ do the following steps \\(and justify them):}
 
 \begin{itemize}		
-	\item[$\alph$] translate it into an NFA
+	\item translate it into an NFA \\
 		\answer{\centeredimg{rl_1_a}}
-
-	\item[$\alph$] remove (semantic preserving) the $ \epsilon $ transitions
-		\answer{\centeredimg{rl_1_b}}
-
-	\item[$\alph$] create the corresponding DFA
+	\item remove (semantic preserving) the $ \epsilon $ transitions \\
+		\answer{\centeredimg{rl_1_b}} 
+	\pagebreak
+	\item create the corresponding DFA \\
 		\answer{\centeredimg{rl_1_c}}
-\end{itemize}		
+\end{itemize}
 
 \pagebreak
 
 \question{2. Consider the following language: \\ 
 	A word is in the language if and only if it contains an even number
-	of $A$s an odd number of $B$s and precisely one $C$.
-  Design a DFA for this language. Explain your design  (what information do you ``store'' in your states?)}
+of $A$s an odd number of $B$s and precisely one $C$.}
 
-\answer{Not possible.} 
-\answer{Not possible.} 
+\begin{itemize}		
+	\item Design a DFA for this language. \\
+		\answer{Not possible.} 
+	\item Explain your design (what information do you ``store'' in your states?) \\
+		\answer{Not possible.} 
+\end{itemize}
 
 \pagebreak
 
