@@ -1,14 +1,17 @@
 \documentclass[a4paper, 14pt]{report}
 
+%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath}  % math
 \usepackage{graphicx} % embedding images
-\usepackage{enumitem} % lists
+% \usepackage{enumitem} % lists
 \usepackage{hyperref} % urls
 
 \usepackage{geometry} % margins
 \geometry{margin=0.9in} % make the margin smaller
 
 \graphicspath{{z:/Documents/Assessments/Logic/img}{../img/}{./img/}}
+
+%% END OF PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \author{%
 	Norbert Logiewa \\
@@ -57,11 +60,10 @@
 
 \maketitle
 
-
 \topic{Propositional Logic}
 
 \question{1. Model as a propositional formal the property that
-	the initial state cannot be reached from c or b}
+	the initial state cannot be reached from $c$ or $b$}
 
 \answer{%
 	$ model \rightarrow \neg ((c \rightarrow a^\prime) \vee (b \rightarrow a^\prime)) $
@@ -91,63 +93,90 @@
 	$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $
 }
 
-\question{4. Negate the formula $ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) $  and convert it to CNF.} %% TODO check !!!
+\question{4. Negate the formula $ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) $  and convert it to CNF.\\ }
 
 \begin{enumerate}
 
 	\begin{enumerate}
 
-		\item Negate the formula \\ \\
+		\item Negate the formula
 			$ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) $
 		
-		\item Remove $\rightarrow$ using $A \rightarrow B \equiv \neg A \vee B$ property \\ \\
-			$ \neg (((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee \neg a^\prime)) $ \\
-			$ \neg (\neg ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee \neg a^\prime)) $ \\
+		\item Remove $\rightarrow$ using $A \rightarrow B \equiv \neg A \vee B$ property
 
-		\item Push $\neg$ inwards using De Morgan's Laws \\ \\
-			$ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge \neg (\neg b \vee \neg a^\prime) $ \\
-			$ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge (b \wedge a^\prime) $ \\
+			\begin{enumerate}		
+				\item $ \neg (((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (\neg b \vee \neg a^\prime)) $ 
+				\item $ \neg (\neg ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \vee (\neg b \vee \neg a^\prime)) $ 
+			\end{enumerate}		
 
-		\item Distribute \\ \\ 
-			$ b \wedge ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge a^\prime \wedge  ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) $ \\
-			$ b \wedge (\neg a \vee b^\prime) \wedge b \wedge (\neg a \vee \neg b) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge a^\prime \wedge (\neg a \vee b^\prime) \wedge a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime \wedge (b^\prime \wedge \neg a^\prime) $
+		\item Push $\neg$ inwards using De Morgan's Laws
+		
+			\begin{enumerate}		
+				\item $ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge \neg (\neg b \vee \neg a^\prime) $
+				\item $ ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge (b \wedge a^\prime) $
+			\end{enumerate}		
 
-		\item Simplify (remove duplicate elements because $ A \wedge A \equiv A$) \\ \\ 
-			$ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\
-			$ (\neg a \vee b^\prime) \wedge b \wedge b^\prime \wedge \neg a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\
+		\item Distribute
+
+			\begin{enumerate}		
+				\item $ b \wedge ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \wedge a^\prime \wedge  ((\neg a \vee b^\prime) \wedge (\neg a \vee \neg b) \wedge (b^\prime \wedge \neg a^\prime)) $ 
+				\item $ b \wedge (\neg a \vee b^\prime) \wedge b \wedge (\neg a \vee \neg b) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge a^\prime \wedge (\neg a \vee b^\prime) \wedge a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime \wedge (b^\prime \wedge \neg a^\prime) $
+			\end{enumerate}		
+
+			\pagebreak
+
+		\item Simplify (remove duplicate elements because $ A \wedge A \equiv A$)
+		
+			\begin{enumerate}		
+				\item $ (\neg a \vee b^\prime) \wedge b \wedge (b^\prime \wedge \neg a^\prime) \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\ 
+				\item $ (\neg a \vee b^\prime) \wedge b \wedge b^\prime \wedge \neg a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\  \\
+					Parenthesis are dropped because: $ A \wedge B \wedge C \equiv A \wedge (B \wedge C) \equiv (A \wedge B) \wedge C $
+					so they all need to be $True$ anyway \\
+				\item $ \neg a^\prime \wedge a^\prime \wedge b \wedge b^\prime \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee b^\prime) $ \\ 
+			\end{enumerate}		
 
 	\end{enumerate}		
 \end{enumerate}		
 
 \hline
 
-\answer{$ (\neg a \vee b^\prime) \wedge b \wedge b^\prime \wedge \neg a^\prime \wedge (\neg a \vee \neg b) \wedge a^\prime  $ \\} \\
+\answer{$ \neg a^\prime \wedge a^\prime \wedge b \wedge b^\prime \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee b^\prime) $ \\} \\
 
 \question{5. Explain the principle of unit propagation from DPLL, and use
   it to show that CNF formula of the previous question is unsatisfiable.}
 
-	\begin{enumerate}		
+\begin{enumerate}		
 
-		\item \answer{%
-				Unit propagation refers to a technique that is used to simplify
-				logical formulas.
-				When we have a clause that \textit{only} contains a single literal
-				such as $ x $, in all other clauses that contain $ x $, we can
-			  replace it with $ True $.} \\
+	\item \answer{%
+			Unit propagation refers to a technique that is used to simplify
+			logical formulas.
+			When we have a clause that \textit{only} contains a single literal
+			such as $ x $, in all other clauses that contain $ x $, we can
+			replace it with $ True $ ie. $\top$.} \\
 
-		\item \answer{%
-				We can use it to show that the previous formula is unsatisfiable by demonstrating that it is a contradiction.
-				We simplify it and continue to substitute $ True $ for single literal clauses.
-				When we rearrange and simplify the formula, it becomes clear that we have 
-				$ a^\prime \wedge \neg a^\prime $.  We can replace $a^\prime$ with $\top$ which results in $\top \wedge \bot$, this is a contradiction.}
 
-	\end{enumerate}		
+	\item \answer{We can use it to show that the previous formula is
+		unsatisfiable by demonstrating that it is a contradiction.
+		We simplify it and continue to substitute $True$
+		ie $\top$ for single literal clauses.
+
+		\begin{enumerate}		
+			\item $ \neg a^\prime \wedge a^\prime \wedge b \wedge b^\prime \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee b^\prime) $ 
+			\item $ \neg a^\prime \wedge a^\prime \wedge b \wedge \top \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee \top) $ replace all $b^\prime$s with $\top$  \\
+			\item $ \neg a^\prime \wedge a^\prime \wedge \top \wedge \top \wedge (\neg a \vee \bot)  \wedge (\neg a \vee \top) $ replace all $b$s with $\top$  \\
+			\item $ \bot \wedge \top \wedge \top \wedge \top \wedge (\neg a \vee \bot)  \wedge (\neg a \vee \top) $ replace all $a^\prime$s with $\top$  \\
+		\end{enumerate}			
+
+		When we rearrange and simplify the formula, it becomes clear that we have 
+	$\top \wege \bot$, this is a contradiction, something cannot be $True$ and $False$ at the same time ($\bot \wedge \top \equiv \bot$).}
+
+\end{enumerate}		
 
 \question{6. Comment on the validity of the original formula.} 
 
 \answer{The formula is not satisfiable and therefore not valid as satisfiability is
 	a prerequisite for validity. In other words, because that logical statement
-	was a contradiction (\textit{assumed something can be False and True at the same time}), there was no way in which it could have been true and
+	was a contradiction (\textit{assumed something can be False $\bot$ and True $\top$ at the same time}), there was no way in which it could have been true and
 	because of that it is not valid.}
 
 \topic{First Order Logic}
@@ -163,7 +192,7 @@
 
 \answer{%
 	$ \exists!{x}.P(x) \equiv \exists{x}(P(x) \wedge \forall{y}(P(y) \rightarrow y = x))  $
-	\footnote{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification} \\
+	\footnote{There exists exactly one, see https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification} \\
 	$ \forall{i}.\exists!{y}.\exists!{x} (parent(x, i) \wedge parent(y, i) \wedge \neg (x \equiv y)) $ 
 }
 
@@ -195,11 +224,10 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\vdash \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b) 
 \]
 
-\answer{%
-	If this is not valid then
-	$ \forall{x}.\exists{y}.parent(y, x) \wedge \neg (\forall{a}.\exists{b}.parent(a, b)) $
-	because the only way to contradict implication is by concluding false from true.
-	This is because $ \neg (A \rightarrow B) \rightarrow (A \wedge \neg B)$.
+\answer{If this is not valid then:
+	$ \forall{x}.\exists{y}.parent(y, x) \wedge \neg (\forall{a}.\exists{b}.parent(a, b)) $,
+	because the only way implication can be wrong is if we are concluding
+	$False$ from $True$ ie $ \neg (A \rightarrow B) \equiv A \wedge \neg B$.
 	So I need to prove this is true by defining the Universe $P$ (a set):
 
 	\[ P = \{\ x\ |\ \exists{y}.parent(y, x)\} \]
@@ -209,10 +237,9 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\[ \exists{a}.\exists{b}.\neg parent(a, b) \]
 
 	The reason this would be a counterexample is that it shows that
-	there is an object for which the predicate $parent$ does not hold,
-	which contradictis this logical statement which is universally
-	quantified ie. makes a claim about all objects.
-}
+	there is an object for which the predicate $ parent $ does not hold,
+	which contradicts this logical statement which is universally
+	quantified ie.\ makes a claim about all objects.}
 
 \pagebreak
 
@@ -221,7 +248,7 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 \answer{The smallest possible counterexample universe (a set) would consist
 	of the minimum number of elements for which the predicate does not hold (here this is two). 
 	Normally one counterexample  is sufficient to contradict any
-  statment that is universally quantified. In other words $\exists(A).\neg P(A)$ 
+  statement that is universally quantified. In other words $\exists(A).\neg P(A)$ 
   contradicts $\forall{A}.P(A)$, but because this predicate is a statement
   about two objects $A$ and $B$ we do need both to show a single case where
   $P$ does not hold.}
@@ -250,7 +277,7 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\item translate it into an NFA \\
 		\answer{\centeredimg{rl_1_a.jpg}}
 	\item remove (semantic preserving) the $ \epsilon $ transitions \\
-		\answer{} 
+		\answer{--} 
 	\pagebreak
 	\item create the corresponding DFA \\
 		\answer{\centeredimg{rl_1_c.jpg}}
@@ -259,28 +286,27 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 \question{2. Consider the following language: A word is in the language if
   and only if it contains an even number of $A$s an odd number of $B$s and precisely one $C$.}
 
-\answer{%
-	This is not possible because Finite Automata cannot store any states
+\answer{This is not possible because Finite Automata \textit{cannot store any states}
 	-- they don't have memory and cannot keep track of how many $A$s
 	and $B$s have been encountered. They only memory they have is the state they are in.
 	Generally speaking FSM lack the expressivenes to solve this problem
-	and parsing needs to be used in such cases.
-} 
+	and parsing needs to be used in such cases.} 
+
 \pagebreak
 
 \section*{References}
 
 \begin{itemize}[noitemsep]		
-  \item \url{https://en.wikipedia.org/wiki/Negation}
-	\item \url{https://en.wikipedia.org/wiki/Distributive\_property}
 	\item \url{https://en.wikipedia.org/wiki/Conjunctive\_normal\_form}
 	\item \url{https://en.wikipedia.org/wiki/De\_Morgan\%27s\_laws}
-	\item \url{https://en.wikipedia.org/wiki/Modus\_ponens}
+	\item \url{https://en.wikipedia.org/wiki/Distributive\_property}
 	\item \url{https://en.wikipedia.org/wiki/Exclusive\_or}
 	\item \url{https://en.wikipedia.org/wiki/Finite-state\_machine}
+	\item \url{https://en.wikipedia.org/wiki/Modus\_ponens}
 	\item \url{https://en.wikipedia.org/wiki/Uniqueness\_quantification}
 	\item \url{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification}
 	\item \url{https://stackoverflow.com/questions/133601/can-regular-expressions-be-used-to-match-nested-patterns}
+  \item \url{https://en.wikipedia.org/wiki/Negation}
 \end{itemize}		
 
 \end{document}
