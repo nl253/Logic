@@ -264,17 +264,6 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 
 \hline
 
-% \begin{enumerate}		
-	% \item $ \forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) $ [premise] \\
-	% \item $ parent(x_0, y_0) \rightarrow \neg (x_0 \equiv y_0)  $ $ \forall_e $ 1
-	% \item $ \neg parent(x_0, y_0) \vee \neg (x_0 \equiv y_0) $  because $ P \rightarrow Q \equiv \neg P \vee Q $
-  % \item $ \neg (parent(x_0, y_0) \wedge (x_0 \equiv y_0)) $  De Morgan's Law 
-	% \item $ \neg parent(x_0, x_0) $  because if $ (A \equiv B ) $ then we can replace all $B$ with $A$ or $A$ with $B$ 
-	% \item $ \neg \exists{x_0}.parent(x_0, x_0)) $  $ \exists_i $ \\
-	% \hline
-	% \item $ \neg \exists{x_0}.parent(x_0, x_0)) $  $ \exists_i $
-% \end{enumerate}		
-
 {\setlength\subproofhorizspace{0em}
 	\begin{logicproof}{1}
 		\forall{x}.\forall{y}.parent(x, y) \rightarrow \neg(x \equiv y) & premise \\
