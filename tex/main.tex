@@ -1,10 +1,12 @@
 \documentclass[a4paper, 14pt]{report}
 
 %% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage{amsmath}  % math
 \usepackage{graphicx} % embedding images
-% \usepackage{enumitem} % lists
+\usepackage{enumitem} % lists
 \usepackage{hyperref} % urls
+\usepackage{logicproof} % fitch style proofs
 
 \usepackage{geometry} % margins
 \geometry{margin=0.9in} % make the margin smaller
@@ -72,24 +74,24 @@
 
 \[ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime \vdash (a \vee b) \rightarrow (b^\prime \vee c^\prime)\]
 
-\begin{enumerate}		
-	\item $ a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime $ [premise] \\ 
-	\hline
-	\item $ (a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) $ [$ \wedge_i $] 1
-	\item $ (a \rightarrow b^\prime) \wedge (c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [commutativity of $ \wedge $] 2
-	\item $ (a \wedge c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) $ [distributivity of $ \rightarrow $] 3
-	\item $ a \wedge c \rightarrow b^\prime $ [$ \wedge_{e2} $] 4
-	\item $ a \rightarrow b^\prime $ [$ \wedge_{e2} $] 5
-	\item $ a \vee b \rightarrow b^\prime $ [$ \vee_{i2} $] 6 \\
-	\hline
-	\item $ (a \vee b) \rightarrow (b^\prime \vee c^\prime) $  [$ \vee_i $] 7 [conclusion] \\
-\end{enumerate}		
+\hline
+
+{\setlength\subproofhorizspace{4em}
+	\begin{logicproof}{1}
+		a \rightarrow b^\prime.b \rightarrow c^\prime.c \rightarrow b^\prime & premise \\
+		(a \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) \wedge (c \rightarrow b^\prime) & $\wedge_i$\ 1 \\
+		(a \rightarrow b^\prime) \wedge (c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) & commutativity of $\wedge$\ 2 \\
+		(a \wedge c \rightarrow b^\prime) \wedge (b \rightarrow c^\prime) & distributivity of $\rightarrow$ 3 \\
+		a \wedge c \rightarrow b^\prime & $\wedge_{e1}$ 4 \\
+		a \rightarrow b^\prime & $\wedge_{e1}$ 5 \\
+		a \vee b \rightarrow b^\prime & $\vee_{i2}$ 6 \\
+		(a \vee b) \rightarrow (b^\prime \vee c^\prime) & $\vee_{i2}$ 7
+	\end{logicproof}}
 
 \question{3. Model the property that the automate can only be in one state at a time via a definition of a propositional function}
-
 \answer{%
-	$ A \oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator] \\
-	$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $
+	$ A\oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator]\\ \\
+	$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $ 
 }
 
 \question{4. Negate the formula $ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) $  and convert it to CNF.\\ }
@@ -139,7 +141,7 @@
 
 \hline
 
-\answer{$ \neg a^\prime \wedge a^\prime \wedge b \wedge b^\prime \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee b^\prime) $ \\} \\
+\answer{$ \neg a^\prime \wedge a^\prime \wedge b \wedge b^\prime \wedge (\neg a \vee \neg b)  \wedge (\neg a \vee b^\prime) $ \\}
 
 \question{5. Explain the principle of unit propagation from DPLL, and use
   it to show that CNF formula of the previous question is unsatisfiable.}
@@ -151,7 +153,7 @@
 			logical formulas.
 			When we have a clause that \textit{only} contains a single literal
 			such as $ x $, in all other clauses that contain $ x $, we can
-			replace it with $ True $ ie. $\top$.} \\
+			replace it with $ True $ ie. $\top$.\\ }
 
 
 	\item \answer{We can use it to show that the previous formula is
@@ -167,7 +169,7 @@
 		\end{enumerate}			
 
 		When we rearrange and simplify the formula, it becomes clear that we have 
-	$\top \wege \bot$, this is a contradiction, something cannot be $True$ and $False$ at the same time ($\bot \wedge \top \equiv \bot$).}
+	  $\top \wege \bot$, this is a contradiction, something cannot be $True$ and $False$ at the same time ($\bot \wedge \top \equiv \bot$).}
 
 \end{enumerate}		
 
@@ -195,19 +197,23 @@
 	$ \forall{i}.\exists!{y}.\exists!{x} (parent(x, i) \wedge parent(y, i) \wedge \neg (x \equiv y)) $ 
 }
 
-\question{3. Prove that the following sequent is valid:} % TODO
+\question{3. Prove that the following sequent is valid:}
 
-\[ parent(p, q), \forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists{z}.parent(z, p) \]
-
-\hline
-
-\begin{enumerate}		
-	\item $ parent(p, q).\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) $ [premise]
-	\item  ---
-	\item $ \exists.parent(z, p) $ [conclusion] 1 -- ?
-\end{enumerate}		
+\[ parent(p, q), \forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) \vdash \exists{z}.parent(z, p) \\ \]
 
 \hline
+
+{\setlength\subproofhorizspace{2em}
+	\begin{logicproof}{1}
+		parent(p, q) & premise \\
+		\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) & premise \\ 
+		\begin{subproof}
+			parent(p, q) \rightarrow \exists{z}.parent(z, p) & \forall e\ 2 \\
+			parent(p, q) & 1 \\
+			\exists{z}.parent(z, p) & modus ponens
+		\end{subproof}
+		\exists.parent(z, p) & conclusion
+	\end{logicproof}}
 
 \question{4. Interpret the following formula into simple English statement}
 
@@ -295,18 +301,20 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 
 \section*{References}
 
-\begin{itemize}[noitemsep]		
-	\item \url{https://en.wikipedia.org/wiki/Conjunctive\_normal\_form}
-	\item \url{https://en.wikipedia.org/wiki/De\_Morgan\%27s\_laws}
-	\item \url{https://en.wikipedia.org/wiki/Distributive\_property}
-	\item \url{https://en.wikipedia.org/wiki/Exclusive\_or}
-	\item \url{https://en.wikipedia.org/wiki/Finite-state\_machine}
-	\item \url{https://en.wikipedia.org/wiki/Modus\_ponens}
-	\item \url{https://en.wikipedia.org/wiki/Uniqueness\_quantification}
-	\item \url{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification}
-	\item \url{https://stackoverflow.com/questions/133601/can-regular-expressions-be-used-to-match-nested-patterns}
-  \item \url{https://en.wikipedia.org/wiki/Negation}
-\end{itemize}		
+\begin{flushleft}
+	\begin{itemize}[noitemsep]
+		\item \url{https://en.wikipedia.org/wiki/Conjunctive_normal_form}
+		\item \url{https://en.wikipedia.org/wiki/De_Morgan\%27s_laws}
+		\item \url{https://en.wikipedia.org/wiki/Distributive_property}
+		\item \url{https://en.wikipedia.org/wiki/Exclusive_or}
+		\item \url{https://en.wikipedia.org/wiki/Finite-state_machine}
+		\item \url{https://en.wikipedia.org/wiki/Modus_ponens}
+		\item \url{https://en.wikipedia.org/wiki/Uniqueness_quantification}
+		\item \url{https://math.stackexchange.com/questions/228285/how-can-i-get-the-negation-of-exists-unique-existential-quantification}
+		\item \url{https://stackoverflow.com/questions/133601/can-regular-expressions-be-used-to-match-nested-patterns}
+		\item \url{https://en.wikipedia.org/wiki/Negation}
+	\end{itemize}		
+\end{flushleft}
 
 \end{document}
 %% vim: foldmethod=marker conceallevel=0:
