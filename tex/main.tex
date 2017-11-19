@@ -208,7 +208,7 @@
 		parent(p, q) & premise \\
 		\forall{x}.\forall{y}(parent(x, y) \rightarrow \exists{z}.parent(z,x)) & premise \\ 
 		\begin{subproof}
-			parent(p, q) \rightarrow \exists{z}.parent(z, p) & \forall e\ 2 \\
+			parent(p, q) \rightarrow \exists{z}.parent(z, p) & $\forall e\ 2$ \\
 			parent(p, q) & 1 \\
 			\exists{z}.parent(z, p) & modus ponens
 		\end{subproof}
@@ -281,26 +281,90 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 
 \question{1. For the reular expression $ (A|AB|ABB)^* $ do the following steps \\(and justify them):}
 
-\begin{itemize}		
-	\item translate it into an NFA \\
-		\answer{\centeredimg{rl_1_a.jpg}}
-	\item remove (semantic preserving) the $ \epsilon $ transitions \\
-		\answer{--} 
+\subsubsection*{a) Translate it into an NFA}
+
+\answer{%
+	\begin{itemize}		
+		\item we need to allow an infinite loop because of $*$ (but also allow not to loop at all and end straight away becaue $A^*$ is $A\{0,\infty\}$)
+		\item we need to be able to go around that loop by having either $\epsilon$ or $A$ or $AB$ or $ABB$ as input strings.
+		\item we need to be able to exit after any of these or loop again. 
+	\end{itemize}		
+	Therefore it makes sense to have a loop around the
+	inital state which would also become the final state
+	with $\epsilon$ inputs leading to the final state. \\
+	\centeredimg{rl_1_a.jpg}
+
+	\hline
+
+	\begin{description}
+		\item [Input alphabet] $\Sigma = \{\epsilon, A, AB, ABB \}$
+		\item [Inital state] $s_0$
+		\item [Set of states] $S = \{s_0, S1, S2, S3\}$
+		\item [Set of final states] $F = \{s_0\}$
+	\end{description}
+	\hline
+}
+
+\subsubsection*{b) Remove (semantic preserving) the $ \epsilon $ transitions}
+
+\answer{%
+
+	\begin{itemize}		
+		\item The outcome of this operation \textit{will still} be an NFA
+		\item I will have to compute the \textbf{$\epsilon$ clojure} of the
+			states ie for every state.
+		\item I need to find the set of states reachable from
+			that state by using $\epsilon$ transitions (which will always include going to that state itself)
+	\end{itemize}
+
 	\pagebreak
-	\item create the corresponding DFA \\
-		\answer{\centeredimg{rl_1_c.jpg}}
-\end{itemize}
+
+	\paragraph{Epsilon clojres}
+
+	\begin{description}
+	  \item [$s_0$] $\{s_0\}$
+	  \item [$S1$] $\{s_0, S1\}$
+	  \item [$S2$] $\{s_0, S2\}$
+	  \item [$S3$] $\{s_0, S3\}$
+	\end{description}
+
+	\centeredimg{rl_1_b.jpg}
+} 
+
+\subsubsection*{c) Create the corresponding DFA}
+
+\answer{%
+
+	\begin{itemize}		
+	  \item I need to remove any ambiguity about what state to go 
+	  \item from any state $S_n$ there needs to be at most one $k$
+	  transition to $S_{n+1}$ (the next state)
+	\end{itemize}		
+
+	\centeredimg{rl_1_c.jpg}
+}
+
+\pagebreak
 
 \question{2. Consider the following language: A word is in the language if
   and only if it contains an even number of $A$s an odd number of $B$s and precisely one $C$.}
 
-\answer{This is not possible because Finite Automata \textit{cannot store any states}
+\answer{This is not possible because Finite Automata \textit{cannot store
+any states}
 	-- they don't have memory and cannot keep track of how many $A$s
-	and $B$s have been encountered. They only memory they have is the state they are in.
-	Generally speaking FSM lack the expressivenes to solve this problem
-	and parsing needs to be used in such cases.} 
+	and $B$s have been encountered. They only memory they have is the
+	state they are in.  \\
+	Even though many modern regular expression enginges will allow
+	counted repetitions eg $A\{n,m\}$ ie A occuring $n$ to $m$ times,
+	these are extensions to the traditional idea of finite automata
+	and are not part of FSM themselves. \\ 
+	Having an odd or even number of $A$s would be even more difficult
+	and parhaps impossible even using perl-style regular expressions. \\
+	Generally speaking FSM lack the
+	expressivenes to solve this problem and context free grammars need
+	to be used in such cases.}
 
-\pagebreak
+\hline
 
 \section*{References}
 
