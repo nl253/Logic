@@ -90,15 +90,14 @@
 
 \question{3. Model the property that the automate can only be in one state at a time via a definition of a propositional function}
 \answer{%
-	$ A\oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B) $ [definiton of the $ XOR $ operator]\\ \\
-	$ goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime) $ 
-}
+	$A\oplus B \equiv (A \vee B) \wedge (\neg A \vee \neg B)$ [definiton of the $XOR$ operator]\\ \\
+	$goodState(a, b, c) \equiv (a \rightarrow b^\prime) \oplus (b \rightarrow c^\prime) \oplus (c \rightarrow b^\prime)$}
 
 \question{4. Negate the formula $ ((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime) $  and convert it to CNF.\\ }
 
 \begin{enumerate}
 
-	\begin{enumerate}
+	\item \begin{enumerate}
 
 		\item Negate the formula
 			$ \neg (((a \rightarrow b^\prime) \wedge (a \wedge \neg b) \wedge (b^\prime \wedge \neg a^\prime)) \rightarrow (b \rightarrow \neg a^\prime)) $
@@ -185,7 +184,7 @@
 \question{1. Write a formula in first-order logic, using the parent relation, 
 	that states that two entities $x$ and $y$ are siblings if they share a parent} 
 
-\answer{$ \forall{i}.\forall{j}.siblings(i, j) \equiv (parent(x, i) = parent(x, j)) $}
+\answer{$ siblings(i, j) \equiv (parent(x, i) = parent(x, j)) $}
 
 \question{2. Assuming there is an equality relation $ \equiv $ on $ P $ 
 	such that $ x \equiv y $ means $ x $ and $ y $ are the same entity, 
@@ -233,18 +232,29 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	$ \forall{x}.\exists{y}.parent(y, x) \wedge \neg (\forall{a}.\exists{b}.parent(a, b)) $,
 	because the only way implication can be wrong is if we are concluding
 	$False$ from $True$ ie $ \neg (A \rightarrow B) \equiv A \wedge \neg B$.
-	So I need to prove this is true by defining the Universe $P$ (a set):
 
-	\[ P = \{\ x\ |\ \exists{y}.parent(y, x)\} \]
+	So I need to prove an example of a case where 
+	$\forall{x}.\exists{y}.parent(y, x)$ holds True but 
+	$\forall{a}.\exists{b}.parent(a, b)$ doesn't.\
 
-	and the case that contradicts it:
-
-	\[ \exists{a}.\exists{b}.\neg parent(a, b) \]
+	\begin{flushleft}
+		% the Universe $P$ (a set): $P = \{\ x\ |\ \exists{y}.parent(y, x)\}$ \\
+		the case that contradicts it: $\forall{a}.\exists{b}.\neg parent(b, a)$ \\
+		\textbf{ie there exists a parent that doesn't have a child.}
+	\end{flushleft}
 
 	The reason this would be a counterexample is that it shows that
-	there is an object for which the predicate $ parent $ does not hold,
-	which contradicts this logical statement which is universally
-	quantified ie.\ makes a claim about all objects.}
+	there is an object for which the universally quantified logical statement 
+	$\forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a, b)$
+	does not hold, which contradicts it because it gives an example of a case where it is false. One case is enough to contradict it because it makes a claim about all objects. \\
+
+	\textit{Unfortunately, I cannot think of a different way of defining the relationship $parent$
+		other than in terms of having a child (eg $\exists{x}.\exists{y}.parent(x, y) \rightarrow child(y, x)$) 
+		which would mean that I could not contradict it using the counterexample above. 
+		I'm also not sure what sort of set (universe) that would be... A
+		set of parents that don't have a child or a set of children that
+		don't have a parent?}
+}
 
 \pagebreak
 
@@ -277,20 +287,20 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 		\neg \exists{x}.parent(x, x) & conclusion
 	\end{logicproof}}
 
-\topic{Regular Lanugages and Finite Automata}
+\topic{Regular Languages and Finite Automata}
 
-\question{1. For the reular expression $ (A|AB|ABB)^* $ do the following steps \\(and justify them):}
+\question{1. For the regular expression $ (A|AB|ABB)^* $ do the following steps \\(and justify them):}
 
 \subsubsection*{a) Translate it into an NFA}
 
 \answer{%
 	\begin{itemize}		
-		\item we need to allow an infinite loop because of $*$ (but also allow not to loop at all and end straight away becaue $A^*$ is $A\{0,\infty\}$)
+		\item we need to allow an infinite loop because of $*$ (but also allow not to loop at all and end straight away because $A^*$ is $A\{0,\infty\}$)
 		\item we need to be able to go around that loop by having either $\epsilon$ or $A$ or $AB$ or $ABB$ as input strings.
 		\item we need to be able to exit after any of these or loop again. 
 	\end{itemize}		
 	Therefore it makes sense to have a loop around the
-	inital state which would also become the final state
+	initial state which would also become the final state
 	with $\epsilon$ inputs leading to the final state. \\
 	\centeredimg{rl_1_a.jpg}
 
@@ -305,6 +315,8 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	\hline
 }
 
+\pagebreak
+
 \subsubsection*{b) Remove (semantic preserving) the $ \epsilon $ transitions}
 
 \answer{%
@@ -317,27 +329,30 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 			that state by using sequences $\epsilon$ transitions (which will include going to that state itself)
 	\end{itemize}
 
-	\pagebreak
+	\paragraph{Epsilon clojures}
 
-	\paragraph{Epsilon clojres}
-		
 	\begin{description}
-	  \item [$s_0$] $\{s_0\}$ becaue there is only one element in this set we know it's a final state
+	  \item [$s_0$] $\{s_0\}$ because there is only one element in this set we know it's a final state
 	  \item [$S1$] $\{s_0, S1\}$
 	  \item [$S2$] $\{s_0, S2\}$
 	  \item [$S3$] $\{s_0, S3\}$
 	\end{description}
 
-	\centeredimg{rl_1_b.jpg}
+	\centeredimg{rl_1_b.png} \\
+
 	\hline
+
 	\begin{description}
 		\item [Input alphabet] $\Sigma = \{A, B\}$
 		\item [Inital state] $s_0$
 		\item [Set of states] $S = \{s_0, S1, S2, S3\}$
 		\item [Set of final states] $F = \{s_0\}$
 	\end{description}
+
 	\hline
 } 
+
+\pagebreak
 
 \subsubsection*{c) Create the corresponding DFA}
 
@@ -349,8 +364,16 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 			transition to the next state
 	\end{itemize}		
 
-	The answer is the same as for part ``b'' becasue the FSM does not
-	have any non-deterministics transitions.
+	\centeredimg{rl_1_c.jpg}
+
+	\hline
+	\begin{description}
+		\item [Input alphabet] $\Sigma = \{A, B\}$
+		\item [Inital state] $s_0$
+		\item [Set of states] $S = \{s_0, S1, S2, S3\}$
+		\item [Set of final states] $F = \{s_0\}$
+	\end{description}
+	\hline
 }
 
 \question{2. Consider the following language: A word is in the language if
@@ -360,16 +383,16 @@ $ \forall{x}.\exists{y}.parent(y, x) \rightarrow \forall{a}.\exists{b}.parent(a,
 	-- they don't have memory and cannot keep track of how many $A$s
 	and $B$s have been encountered. The \textit{only} memory they have is the
 	state they are in.  \\
-	Even though many modern regular expression enginges will allow
-	counted repetitions eg $A\{n,m\}$ ie A occuring $n$ to $m$ times,
+	Even though many modern regular expression engines will allow
+	counted repetitions eg $A\{n,m\}$ ie A occurring $n$ to $m$ times,
 	these are extensions to the traditional idea of finite automata
 	and are not part of FSM themselves. \\ 
 	Having an odd or even number of $A$s would be even more difficult
-	and parhaps impossible even using perl-style regular expressions. \\
-	Generally speaking FSM lack the expressivenes to solve this problem
+	and perhaps impossible even using Perl-style regular expressions. \\
+	Generally speaking FSM lack the expressiveness to solve this problem
 	and context free grammars need to be used in such cases.}
 
-\hline
+\pagebreak
 
 \section*{References}
 
